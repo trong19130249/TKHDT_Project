@@ -40,8 +40,7 @@ public class StaffOfAccount extends JFrame {
 	private JTextField txtSignUp = new JTextField();
 
 	private JLabel lbPass = new JLabel("      Mật khẩu: ");
-	private JPasswordField txtPass = new JPasswordField();
-
+	private JTextField txtPass = new JTextField();
 
 	private JLabel lbPhone = new JLabel("      Số điện thoại: ");
 	private JTextField txtPhone = new JTextField();
@@ -50,11 +49,11 @@ public class StaffOfAccount extends JFrame {
 	private JTextField txtEmail = new JTextField();
 
 	private JLabel lbSex = new JLabel("      Giới tính: ");
-	private String[] isSex= {"Nữ","Nam"};
+	private String[] isSex = { "Nữ", "Nam" };
 	private JComboBox jcbSex = new JComboBox(isSex);
 	private JLabel lbPos = new JLabel("      Chức vụ: ");
-	List<ChucVu> listChucVu=TaiKhoanDao.getInstance().getListChucVu();
-	private JComboBox jcbPos; ;
+	List<ChucVu> listChucVu = TaiKhoanDao.getInstance().getListChucVu();
+	private JComboBox jcbPos;;
 	private JLabel lbSalary = new JLabel("      Lương: ");
 	private JTextField txtSalary = new JTextField();
 	private JLabel lbNote = new JLabel("      Ghi Chú: ");
@@ -88,12 +87,12 @@ public class StaffOfAccount extends JFrame {
 	NhanVien nv;
 	TaiKhoan tk;
 	private String userName;
-	
-	public StaffOfAccount(String userName,final MnAccount mn) {
-		this.userName=userName;
+
+	public StaffOfAccount(String userName, final MnAccount mn) {
+		this.userName = userName;
 		setLayout(new GridLayout(0, 2));
-		jcbPos=new JComboBox();
-		for(ChucVu cv:listChucVu) {
+		jcbPos = new JComboBox();
+		for (ChucVu cv : listChucVu) {
 			jcbPos.addItem(cv.getTen());
 		}
 		jcbPos.addItemListener(new ItemListener() {
@@ -101,10 +100,10 @@ public class StaffOfAccount extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-			         int index=jcbPos.getSelectedIndex();
-			     	listChucVu=TaiKhoanDao.getInstance().getListChucVu();
-			     	txtSalary.setText(listChucVu.get(index).getLuong()+"");
-			       }
+					int index = jcbPos.getSelectedIndex();
+					listChucVu = TaiKhoanDao.getInstance().getListChucVu();
+					txtSalary.setText(listChucVu.get(index).getLuong() + "");
+				}
 			}
 		});
 		panel1.add(lbName);
@@ -115,7 +114,7 @@ public class StaffOfAccount extends JFrame {
 
 		panel3.add(lbPass);
 		panel3.add(txtPass);
-		
+
 		panel5.add(lbPhone);
 		panel5.add(txtPhone);
 
@@ -136,10 +135,10 @@ public class StaffOfAccount extends JFrame {
 		panel9.add(lbSalary);
 		txtSalary.setEditable(false);
 		panel9.add(txtSalary);
-		
+
 		panel10.add(lbNote);
 		panel10.add(txtNote);
-		
+
 		panel11.add(lbAddress);
 		panel11.add(txtAddress);
 		btSave.setIcon(new ImageIcon(getClass().getResource("/View/SwingIcon/" + "SaveIcon.png")));
@@ -192,24 +191,22 @@ public class StaffOfAccount extends JFrame {
 		setData();
 		btSave.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				int result=JOptionPane.showConfirmDialog(null, "Bạn có muốn lưu không?");
+				int result = JOptionPane.showConfirmDialog(null, "Bạn có muốn lưu không?");
 				if (result == JOptionPane.OK_OPTION) {
-					String ten=txtName.getText();
-					String userName=txtSignUp.getText();
-					String pass=txtPass.getText();
-					int sdt=Integer.parseInt(txtPhone.getText());
-					String ghiChu=txtNote.getText().equals("")?nv.getGhiChu():txtNote.getText();
-					int gioiTinh=jcbSex.getSelectedIndex();
-					String email=txtEmail.getText().equals("")?nv.getEmail():txtEmail.getText();
-					String diaChi=txtAddress.getText().equals("")?nv.getDiaChi():txtAddress.getText();
-					boolean isExitsAccount=userName.equals("")?false:true;
-					String idChucVu=listChucVu.get(jcbPos.getSelectedIndex()).getId();
-					System.out.println(NhanVienDao.getInstance().setNhanVien(nv.getId(), ten, sdt, nv.getTrangThai(), ghiChu, gioiTinh, email, diaChi, idChucVu));
-						int admin=tk.isQuyenQuanTri()?1:0;
-						System.out.println(TaiKhoanDao.getInstance().editAccount(nv.getId(), nv.getId(), userName, pass, admin));
+					String ten = txtName.getText();
+					String userName = txtSignUp.getText();
+					String pass = txtPass.getText();
+					int sdt = Integer.parseInt(txtPhone.getText());
+					String ghiChu = txtNote.getText().equals("") ? nv.getGhiChu() : txtNote.getText();
+					int gioiTinh = jcbSex.getSelectedIndex();
+					String email = txtEmail.getText().equals("") ? nv.getEmail() : txtEmail.getText();
+					String diaChi = txtAddress.getText().equals("") ? nv.getDiaChi() : txtAddress.getText();
+					boolean isExitsAccount = userName.equals("") ? false : true;
+					String idChucVu = listChucVu.get(jcbPos.getSelectedIndex()).getId();
+					int admin = tk.getQuyen();
 					mn.update();
-					
-			    }
+
+				}
 			}
 		});
 		jButtonBrowseImage.addActionListener(new java.awt.event.ActionListener() {
@@ -224,28 +221,30 @@ public class StaffOfAccount extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 	}
+
 	public void setData() {
-		tk=TaiKhoanDao.getInstance().getAccountWithUser(userName);
-		nv=tk.getNhanVien();
+		tk = TaiKhoanDao.getInstance().getAccountWithUser(userName);
+		nv = tk.getNhanVien();
 		txtName.setText(nv.getTen());
-			txtSignUp.setText(tk==null?"":tk.getUserName());
-			txtPass.setText(tk==null?"":tk.getPass());
-			txtPhone.setText("0"+nv.getSdt());
-			txtEmail.setText(nv.getEmail());
-			jcbSex.setSelectedIndex(nv.getGioiTinh());
-			int indexPos=0;
-			for(int i=0;i<listChucVu.size();i++) {
-				if(nv.getChucVu().equals(listChucVu.get(i).getTen())) {
-					indexPos=i;
-					break;
-				}
+		txtSignUp.setText(tk == null ? "" : tk.getUserName());
+		txtPass.setText(tk == null ? "" : tk.getPass());
+		txtPhone.setText("0" + nv.getSdt());
+		txtEmail.setText(nv.getEmail());
+		jcbSex.setSelectedIndex(nv.getGioiTinh());
+		int indexPos = 0;
+		for (int i = 0; i < listChucVu.size(); i++) {
+			if (nv.getChucVu().equals(listChucVu.get(i).getTen())) {
+				indexPos = i;
+				break;
 			}
-			jcbPos.setSelectedIndex(indexPos);
-			txtSalary.setText(nv.getLuong()+"");
-			txtNote.setText(nv.getGhiChu());
-			txtAddress.setText(nv.getDiaChi());
-		
+		}
+		jcbPos.setSelectedIndex(indexPos);
+		txtSalary.setText(nv.getLuong() + "");
+		txtNote.setText(nv.getGhiChu());
+		txtAddress.setText(nv.getDiaChi());
+
 	}
+
 	private void jButtonBrowseImageActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		JFileChooser browseImageFile = new JFileChooser();
@@ -267,6 +266,5 @@ public class StaffOfAccount extends JFrame {
 			jLabelImage.setIcon(new ImageIcon(image));
 		}
 	}
-
 
 }

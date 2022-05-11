@@ -332,7 +332,7 @@ private DangNhapDangXuatModelInterface data;
 	    				JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ");
 				}else {
 					NhanVien nv=new NhanVien(UUID.randomUUID().toString(),name,  Integer.parseInt(phoneNumber), 0, "Nhân Viên Mới", sex, email, address, "cv01", 5000000);
-			    	TaiKhoan cus = new TaiKhoan(userName, password, nv, false);
+			    	TaiKhoan cus = new TaiKhoan(userName, password, nv, 0);
 					if (signupControler.signup(cus)) {
 	    				JOptionPane.showMessageDialog(this, "Đăng ký thành công");
 					}else {

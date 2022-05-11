@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -51,6 +54,7 @@ import View.swing.MainForm;
 import View.swing.PanelBorder;
 import View.swing.WinButton;
 import View.viewMain.AddCustomer;
+import View.viewMain.InformationStaff;
 import View.viewMain.MnAccount;
 import View.viewMain.MnCollectDebt;
 import View.viewMain.MnCustomer;
@@ -60,6 +64,7 @@ import View.viewMain.MnProduct;
 import View.viewMain.MnPurchases;
 import View.viewMain.MnStaff;
 import View.viewMain.MnSupplier;
+import View.viewMain.StaffOfAccount;
 import model.ASanPham;
 import model.DangNhapDangXuatModelInterface;
 import model.Observer;
@@ -127,6 +132,44 @@ public class Main extends javax.swing.JFrame {
 		init();
 //        dataTestFormSales();
 	}
+	public boolean notifyErr(int typeCheck) {
+		switch(typeCheck) {
+	
+//		case 0:
+//			if(taiKhoan.getQuyen()<1) {
+//				JOptionPane.showMessageDialog(this, "Bạn không có đủ quyền hạn","Lỗi",JOptionPane.ERROR_MESSAGE);
+//				return false;
+//			}
+//			else return true;
+		
+		case 1:
+			// form trang chu, danh sach hang,ban hang,don hang, khach hang, thu no
+			//cho quan ly ban hang, nhan vien quay
+			if(taiKhoan.getQuyen()<1) {
+				JOptionPane.showMessageDialog(this, "Bạn không có đủ quyền hạn","Lỗi",JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			else return true;
+		case 2:
+			//form nha cung cap, nhap hang
+			// danh cho quan ly kho
+			
+			if(taiKhoan.getQuyen()<2) {
+				JOptionPane.showMessageDialog(this, "Bạn không có đủ quyền hạn","Lỗi",JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			else return true;
+		case 3:
+			//tat ca moi quyen bao gom nhan vien, tai khoan 
+			if(taiKhoan.getQuyen()<3) {
+				JOptionPane.showMessageDialog(this, "Bạn không có đủ quyền hạn","Lỗi",JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			else return true;
+		}
+		return true;
+		
+	}
 	private void init() {
 		setBackground(new Color(0, 0, 0, 0));
 		menu = new Menu();
@@ -176,9 +219,8 @@ public class Main extends javax.swing.JFrame {
 		reportController=new ReportController(accountData);
 		
 		mnAccount = new MnAccount(accountData,reportController);
-		mnAccount.setAdmin(taiKhoan.isQuyenQuanTri());
+
 		mnStaff=new MnStaff(staffData, nvController);	
-		mnStaff.setAdmin(taiKhoan.isQuyenQuanTri());
 		// dk them
 		collectDData.registerObserver((Observer)mnCustomer);
 		customerData.registerObserver((Observer)mnCollectD);
@@ -211,37 +253,52 @@ public class Main extends javax.swing.JFrame {
 			@Override
 			public void selected(int index) {
 				if (index == 0) {
+					if(notifyErr(1))
 					setForm(home);
 				} else if (index == 1) {
+					if(notifyErr(1))
 					setForm(mnProduct);
 				} else if (index == 2) {
+					if(notifyErr(2))
 					setForm(mnSupplier);
 				} else if (index == 3) {
+					if(notifyErr(3))
 					setForm(mnStaff);
 				} else if (index == 4) {
+					if(notifyErr(1))
 					setForm(mnCustomer);
 				} else if (index == 5) {
+					if(notifyErr(3))
 				setForm(mnAccount);
 				} else if (index == 6) {
+					if(notifyErr(1))
 					setForm(mnOrders);
 				} else if (index == 7) {
+					if(notifyErr(2))
 					setForm(mnPurchases);
 				} else if (index == 8) {
+					if(notifyErr(1))
 					setForm(mnCollectD);
 				} else if (index == 9) {
+					if(notifyErr(2))
 					setForm(mnPayDebt);
 					
 				}
 				else if (index == 10) {
+					if(notifyErr(1))
                     setForm(formSales);
 
-				}else if (index == 11) {
-					setForm(mnAccount);
-
-                }else if(index ==14) {
+				}else if (index == 13) {
+					InformationStaff infor=new InformationStaff(taiKhoan.getUserName(),mnAccount);
+					JScrollPane scrollPane = new JScrollPane(infor);
+					scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+					scrollPane.setBounds(50, 30, 300, 50);
+					add(scrollPane);
+					setForm(scrollPane);
+                }
+				else if(index ==14) {
                 	logout();
-                	
-              
+
                 }
 			}
 		});

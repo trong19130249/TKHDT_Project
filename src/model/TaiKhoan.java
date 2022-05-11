@@ -4,12 +4,12 @@ public class TaiKhoan {
 private String userName;
 private String pass;
 private NhanVien nhanVien;
-private boolean quyenQuanTri;
-public TaiKhoan(String userName, String pass, NhanVien nhanVien, boolean quyenQuanTri) {
+private int quyen;
+public TaiKhoan(String userName, String pass, NhanVien nhanVien, int quyen) {
 	this.userName = userName;
 	this.pass = pass;
 	this.nhanVien = nhanVien;
-	this.quyenQuanTri = quyenQuanTri;
+	this.quyen = quyen;
 }
 public String getUserName() {
 	return userName;
@@ -29,11 +29,11 @@ public NhanVien getNhanVien() {
 public void setNhanVien(NhanVien nhanVien) {
 	this.nhanVien = nhanVien;
 }
-public boolean isQuyenQuanTri() {
-	return quyenQuanTri;
+public int getQuyen() {
+	return quyen;
 }
-public void setQuyenQuanTri(boolean quyenQuanTri) {
-	this.quyenQuanTri = quyenQuanTri;
+public void setQuyen(int quyen) {
+	this.quyen = quyen;
 }
 
 }

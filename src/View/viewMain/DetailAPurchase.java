@@ -255,7 +255,6 @@ private MnPurchases mn;
 		int widthTable = jTable.getWidth();
 		for (int i = 0; i < columnNames.length; i++) {
 			jTable.getColumnModel().getColumn(i).setPreferredWidth(Math.round(columnWidthPercentage[i] * widthTable));
-//			System.out.println(widthTable);
 		}
 	}
 
@@ -264,7 +263,6 @@ private MnPurchases mn;
 		// TODO Auto-generated method stub
 		data.setData(idLichSu);
 		tableModel.setRowCount(data.getRowData().length);
-		System.out.println(data.getRowData().length);
 		tableModel = new MyTableModel(data.getRowData(),data.getColumnNames());
 		jTable.setModel(tableModel);
 		sorter = new TableRowSorter<TableModel>(jTable.getModel());

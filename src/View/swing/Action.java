@@ -26,7 +26,6 @@ public class Action extends javax.swing.JPanel {
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	System.out.println("ok");
                 data.getEvent().delete(data.getProduct());
             }
         });

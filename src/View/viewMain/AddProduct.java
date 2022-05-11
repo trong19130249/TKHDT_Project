@@ -99,11 +99,7 @@ public class AddProduct extends JFrame {
 	               double soLuong=txtAmount.getText().equals("")?0:Double.parseDouble(txtAmount.getText());
 	               double giaNhap=txtBuy.getText().equals("")?0:Double.parseDouble(txtBuy.getText());
 	               String loai=txtCate.getText().equals("")?"":txtCate.getText();
-	               System.out.println(donGia);
-	               System.out.println(idnew);
-	               System.out.println(soLuong);
-	               System.out.println(loai);
-	               System.out.println(giaNhap);
+	           
 	             mnProduct.addVatLieu(idnew, ten, donViTinh, donGia, soLuong, loai, giaNhap);
 	               dispose();
 			}

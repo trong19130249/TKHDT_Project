@@ -64,17 +64,13 @@ public class MnAccount extends JPanel implements Observer{
 	private TableRowSorter<TableModel> sorter;
 	private ReportModelInterface data;
 	private ReportController controller;
-	private boolean admin=false;
+
 	private float[] columnWidthPercentage = { 0.01f, 0.14f, 0.24f, 0.14f, 0.12f};
-	public void setAdmin(boolean admin) {
-		this.admin=admin;
-		
-	}
+
 	public MnAccount(ReportModelInterface data,ReportController controller) {
 		this.data=data;
 		this.controller=controller;
 		data.registerObserver((Observer) this);
-		data.setAdmin(admin);
 		data.setData();
 		
 		this.columnNames =data.getColumnNames();

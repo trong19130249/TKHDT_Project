@@ -9,6 +9,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
@@ -142,6 +146,52 @@ public class SigninView extends javax.swing.JFrame {
         buttonSignin.setText("Đăng nhập");
         buttonSignin.setBorder(null);
         buttonSignin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPasswordField1.addKeyListener(new KeyListener() {
+    		
+    		@Override
+    		public void keyTyped(KeyEvent e) {
+    			// TODO Auto-generated method stub
+    			
+    		}
+    		
+    		@Override
+    		public void keyReleased(KeyEvent e) {
+    			// TODO Auto-generated method stub
+    			
+    		}
+    		
+    		@Override
+    		public void keyPressed(KeyEvent e) {
+    			// TODO Auto-generated method stub
+    			    if (e.getKeyCode()==KeyEvent.VK_ENTER){
+    			        buttonSignin.doClick();
+    			    }
+    			
+    		}
+    	});
+        jTextFieldUserName.addKeyListener(new KeyListener() {
+    		
+    		@Override
+    		public void keyTyped(KeyEvent e) {
+    			// TODO Auto-generated method stub
+    			
+    		}
+    		
+    		@Override
+    		public void keyReleased(KeyEvent e) {
+    			// TODO Auto-generated method stub
+    			
+    		}
+    		
+    		@Override
+    		public void keyPressed(KeyEvent e) {
+    			// TODO Auto-generated method stub
+    			    if (e.getKeyCode()==KeyEvent.VK_ENTER){
+    			        buttonSignin.doClick();
+    			    }
+    			
+    		}
+    	});
         buttonSignin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSigninActionPerformed(evt);
@@ -248,11 +298,19 @@ public class SigninView extends javax.swing.JFrame {
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin");
 		}else {
 			if (logController.signin(userName, password)) {
-
-				offView();
+				
 				TaiKhoan tk=TaiKhoanDao.getInstance().getAccountWithUser(userName);
-				Main main=new Main(tk);
-				main.getMain();
+				if(tk.getQuyen()==0) {
+					JOptionPane.showMessageDialog(this, "Bạn không có đủ quyền hạn để truy cập ứng dụng","Thiếu quyền hạn",JOptionPane.ERROR_MESSAGE);
+					
+				}
+					
+				else {
+					offView();
+					Main main=new Main(tk);
+					main.getMain();
+				}
+				
 			}else {
 				if (!logController.containUsername(userName)) {
 					JOptionPane.showMessageDialog(this, "Tài khoản không tồn tài");

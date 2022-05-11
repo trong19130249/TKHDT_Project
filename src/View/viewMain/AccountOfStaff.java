@@ -134,16 +134,7 @@ private String id;
 
 		panel8.add(lbPos);
 		panel8.add(jcbPos);
-		if(!mn.isAdmin()) {
-			jcbPos.setEditable(false);
-			txtName.setEditable(false);
-			txtNote.setEditable(false);
-			jcbSex.setEditable(false);
-			txtSignUp.setEditable(false);
-			txtPass.setEditable(false);
-			txtAddress.setEditable(false);
-			
-		}
+
 		panel9.add(lbSalary);
 		panel9.add(txtSalary);
 		panel10.add(lbNote);
@@ -225,7 +216,7 @@ private String id;
 						TaiKhoanDao.getInstance().addAccount(id, userName, pass, 0);
 					}
 					else {
-						int admin=tk.isQuyenQuanTri()?1:0;
+						int admin=tk.getQuyen();
 						TaiKhoanDao.getInstance().editAccount(id, id, userName, pass, admin);
 					}
 					

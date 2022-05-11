@@ -61,8 +61,8 @@ public class TaiKhoanDao {
 				double luong=rs.getDouble("luong");
 				NhanVien nv=new NhanVien(id, ten, sdt, trangThai, ghiChu, gioiTinh, email, diaChi, tenChucVu, luong);
 				String pass=rs.getString("pass");
-				boolean admin=(rs.getInt("admin")==0)?false:true;
-				TaiKhoan tk=new TaiKhoan(userName, pass, nv, admin);
+				int quyen=rs.getInt("admin");
+				TaiKhoan tk=new TaiKhoan(userName, pass, nv, quyen);
 				return tk;
 			}
 		} catch (SQLException e) {
@@ -90,8 +90,8 @@ public class TaiKhoanDao {
 				NhanVien nv=new NhanVien(id, ten, sdt, trangThai, ghiChu, gioiTinh, email, diaChi, tenChucVu, luong);
 				String userName=rs.getString("user_name");
 				String pass=rs.getString("pass");
-				boolean admin=(rs.getInt("admin")==0)?false:true;
-				TaiKhoan tk=new TaiKhoan(userName, pass, nv, admin);
+				int quyen=rs.getInt("admin");
+				TaiKhoan tk=new TaiKhoan(userName, pass, nv, quyen);
 				return tk;
 			}
 		} catch (SQLException e) {
@@ -120,8 +120,8 @@ public class TaiKhoanDao {
 				NhanVien nv=new NhanVien(id, ten, sdt, trangThai, ghiChu, gioiTinh, email, diaChi, tenChucVu, luong);
 				String userName=rs.getString("user_name");
 				String pass=rs.getString("pass");
-				boolean admin=(rs.getInt("admin")==0)?false:true;
-				TaiKhoan tk=new TaiKhoan(userName, pass, nv, admin);
+				int quyen=rs.getInt("admin");
+				TaiKhoan tk=new TaiKhoan(userName, pass, nv, quyen);
 				result.add(tk);
 			}
 		} catch (SQLException e) {

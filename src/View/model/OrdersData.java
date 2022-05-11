@@ -61,7 +61,6 @@ public class OrdersData implements DonHangModelInterface{
 			double tongTien=dh.thanhTien();
 			int statusVal =dh.getTrangThai();
 			StatusType statusType;
-//			System.out.println(kh.getHoVaTen());
 			// 0 là chờ xác nhận, 1 đang vận chuyển, 2 đã giao, 3 đã huỷ
 			switch (statusVal) {
 			case 0:
@@ -137,7 +136,6 @@ public class OrdersData implements DonHangModelInterface{
 	public boolean setDonHang(String idKh, Date ngayLap,String id,String oldKh) {
 		// TODO Auto-generated method stub
 		boolean r=DonHangDao.getInstance().setDonHang(idKh, ngayLap,id,oldKh);
-		System.out.println(r);
 		if(r)notifyObservers();
 		return r;
 	}
@@ -175,9 +173,6 @@ public class OrdersData implements DonHangModelInterface{
 		default:
 			break;
 		}
-//		System.out.println(result);
-//		System.out.println(DonHangDao.getInstance().totalDonHangByMonth(month+1, year));
-//		System.out.println(DonHangDao.getInstance().totalDonHangByMonth(month2+1, year2))
 		return result;
 	}
 	@Override

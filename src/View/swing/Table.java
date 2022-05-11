@@ -57,7 +57,7 @@ public class Table extends JTable{
                 } else {
 //                    this.setHorizontalAlignment( JLabel.CENTER );
 //                    getColumnModel().getColumn(4).setCellRenderer(this);
-//                	System.out.println(o);
+
                     StatusType type = (StatusType) o;
                     CellStatus cell = new CellStatus(type);
                     return cell;

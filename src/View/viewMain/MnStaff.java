@@ -69,14 +69,9 @@ public class MnStaff extends JPanel implements Observer {
 	private TableRowSorter<TableModel> sorter;
 	private NhanVienModelInterface data;
 	private NhanVienController controller;
-	private boolean admin;
+
 	private float[] columnWidthPercentage = { 0.01f, 0.1f, 0.2f, 0.12f, 0.1f, 0.1f, 0.18f, 0.12f, 0.1f, 0.1f, 0.06f };
-	public void setAdmin(boolean admin) {
-		this.admin=admin;
-	}
-	public boolean isAdmin() {
-		return admin;
-	}
+
 	public MnStaff(NhanVienModelInterface data,NhanVienController controller) {
 		this.data=data;
 		this.controller=controller;

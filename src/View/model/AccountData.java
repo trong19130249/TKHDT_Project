@@ -37,14 +37,7 @@ public class AccountData implements ReportModelInterface {
 			TaiKhoan tk=list.get(i);
 			String statusString=tk.getNhanVien().getTrangThai()==0?"Chưa hoạt động":"Đang hoạt động";
 			String passString="";
-			if(admin) {
 				passString=tk.getPass();
-			}
-			else {
-				for(int j=0;j<tk.getPass().length();j++) {
-					passString+="*";
-				}
-			}
 			Object[] element= {false,tk.getUserName(),passString,statusString,"Xem"};
 			rowData[i]=element;
 		}

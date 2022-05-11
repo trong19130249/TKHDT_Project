@@ -311,7 +311,7 @@ public boolean delete(String id) {
 					ASanPham vl=MaterialFactory.getInstance().createMaterial(type, id, tenSanPham, mota, donViTinh, donGia, soLuong, list,giaNhap);
 					danhSachThanhPhan.add(new ChiTietDonHang(vl, rs.getDouble("so_luong")));
 					dh=new DonHang(rs.getString("dh.id"),rs.getDate("ngay_lap"),kh, rs.getInt("trang_thai"), danhSachThanhPhan);
-					System.out.println(kh);
+					
 				}
 				else {
 					String type=rs.getString("loai");
@@ -387,7 +387,7 @@ public boolean delete(String id) {
 			int affect=ps.executeUpdate();
 			if(affect>0) {
 				DonHang dh=DonHangDao.getInstance().getDonHang(id);
-				System.out.println(dh.thanhTien());
+				
 				KhachHang kh1=KhachHangDao.getInstance().getKhachHang(idKh);
 				KhachHang kh2=KhachHangDao.getInstance().getKhachHang(oldKh);
 				boolean a=KhachHangDao.getInstance().setProperty(idKh, kh1.getHoVaTen(), kh1.getEmail(), kh1.getDiachi(), kh1.getSoTienNo()+dh.thanhTien(), kh1.getDiachi());
@@ -502,12 +502,5 @@ public boolean delete(String id) {
 
 	}
 	
-public static void main(String[] args) {
-//	DonHangDao dh=new DonHangDao();
-//	List<DonHang> list=dh.getAll();
-//	System.out.println(dh.);
-//	System.out.println(dh.getInstance().getDonHang("dh09").thanhTien());
-//	System.out.println(dh.totalOrderByMonth(11, 2022));
-//	System.out.println(dh.totalSales(4, 2022));
-}
+
 }
