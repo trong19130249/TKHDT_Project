@@ -308,9 +308,9 @@ public class Main extends javax.swing.JFrame {
             public void timingEvent(float fraction) {
                 double width;
                 if (menu.isShowMenu()) {
-                    width = 58 + (145 * (1f - fraction));
+                    width = 58 + (144 * (1f - fraction));
                 } else {
-                    width = 58 + (145 * fraction);
+                    width = 58 + (144 * fraction);
                 }
                 layout.setComponentConstraints(menu, "w " + width + "!, spany2");
 
@@ -356,9 +356,9 @@ public class Main extends javax.swing.JFrame {
 	public void logout() {
 		 this.dispose();
 		 DangNhapDangXuatModelInterface logData=new SignInSignUpData();
-     	SignupVsSigninControler logController=new SignupVsSigninControler(logData);
-     	SigninView signIn=new SigninView(logData, logController);
-     	signIn.onView();
+    	SignupVsSigninControler logController=new SignupVsSigninControler(logData);
+    	SigninView signIn=new SigninView(logData, logController);
+    	signIn.onView();
 	}
 //	public void dataTestFormSales(){
 //        List<String> listUrl = new ArrayList<>();

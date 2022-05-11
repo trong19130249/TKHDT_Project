@@ -62,13 +62,15 @@ public class Product extends javax.swing.JPanel {
 //		}
 //        System.out.println(data.getListUrl().get(0));
         try {
-            Icon ic =  new ImageIcon(getClass().getResource(data.getListUrl().get(0)));
-			pictureBox1.setImage(ic);
+        	 Icon ic =  new ImageIcon(getClass().getResource(data.getListUrl().get(0)));
+     		pictureBox1.setImage(ic);
+             lbPrice.setText(data.formatCurrencyVN(data.getDonGia()));
 		} catch (NullPointerException e) {
-			// TODO: handle exception
+			System.err.println("duong dan anh bi loi");
+
 		
 		}
-        lbPrice.setText(data.formatCurrencyVN(data.getDonGia()));
+//    	System.out.println(data.getListUrl().get(0));
         
     }
 
@@ -104,8 +106,12 @@ public class Product extends javax.swing.JPanel {
         lbName.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         lbName.setForeground(new java.awt.Color(76, 76, 76));
         lbName.setText("Product name");
+        try {
+            pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/img_product/no-image.jpg"))); // NOI18N
 
-        pictureBox1.setImage(new javax.swing.ImageIcon(getClass().getResource("/View/img_product/gach.jpg"))); // NOI18N
+		} catch (NullPointerException e) {
+			System.err.println("duong dan anh bi loi");
+		}
 
         lbPrice.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         lbPrice.setForeground(new java.awt.Color(76, 76, 76));
