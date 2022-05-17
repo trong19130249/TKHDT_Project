@@ -42,14 +42,14 @@ public class AddAccount extends JFrame {
 	private JComboBox jcbActive = new JComboBox(isActive);
 	private JComboBox jcbCode = new JComboBox();
 	private JTextField jcbName = new JTextField();
-	
+
 	private JPanel container1 = new JPanel();
 	private JPanel container2 = new JPanel();
 	private JButton btAdd = new JButton("Thêm");
 	private JButton btCancel = new JButton("Hủy");
-	
+
 	private Border lineBorder = new LineBorder(new Color(0, 144, 255), 2);
-	private Border lineBorder2 = new LineBorder(new Color(238,238,238), 10);
+	private Border lineBorder2 = new LineBorder(new Color(238, 238, 238), 10);
 
 	public AddAccount(final MnAccount mn) {
 		GridBagLayout gridbag = new GridBagLayout();
@@ -60,38 +60,45 @@ public class AddAccount extends JFrame {
 		c.weightx = 1.0;
 		c.weighty = 0.9;
 		c.gridwidth = GridBagConstraints.REMAINDER; // end row
-		
+
 		container1.setLayout(new GridLayout(6, 2, 8, 4));
-		container1.add(lbSignUp); container1.add(txtSignUp); 
-		container1.add(lbPass); container1.add(txtPass); 
-		container1.add(lbRePass); container1.add(txtRePass); 
-		container1.add(lbActive); container1.add(jcbActive); 
-		container1.add(lbCode); container1.add(jcbCode); 
-		container1.add(lbName); container1.add(jcbName); 
+		container1.add(lbSignUp);
+		container1.add(txtSignUp);
+		container1.add(lbPass);
+		container1.add(txtPass);
+		container1.add(lbRePass);
+		container1.add(txtRePass);
+		container1.add(lbActive);
+		container1.add(jcbActive);
+		container1.add(lbCode);
+		container1.add(jcbCode);
+		container1.add(lbName);
+		container1.add(jcbName);
 
 		gridbag.setConstraints(container1, c);
 		add(container1);
-		
+
 		btAdd.setPreferredSize(new Dimension(90, 26));
 		btCancel.setPreferredSize(new Dimension(90, 26));
 		container2.setLayout(new FlowLayout(FlowLayout.CENTER, 24, 0));
 		btAdd.setIcon(new ImageIcon(getClass().getResource("/View/SwingIcon/" + "CheckIcon2.png")));
 		btAdd.setBackground(Color.WHITE);
 //		btAdd.setBorder(lineBorder);
-		
+
 		btCancel.setIcon(new ImageIcon(getClass().getResource("/View/SwingIcon/" + "CancelIcon.png")));
 		btCancel.setBackground(Color.WHITE);
 //		btCancel.setBorder(lineBorder);
-		container2.add(btAdd); container2.add(btCancel);
+		container2.add(btAdd);
+		container2.add(btCancel);
 		container2.setBorder(lineBorder2);
 		c.gridwidth = 1; // reset to the default
 		c.gridheight = 1;
 		c.weighty = 0.1;
 		gridbag.setConstraints(container2, c);
 		add(container2);
-		final List<NhanVien> dsnv=NhanVienDao.getInstance().getAll();
-		for(NhanVien nv:dsnv) {
-			jcbCode.addItem((String)nv.getId());
+		final List<NhanVien> dsnv = NhanVienDao.getInstance().getAll();
+		for (NhanVien nv : dsnv) {
+			jcbCode.addItem((String) nv.getId());
 		}
 		jcbName.setText(dsnv.get(jcbCode.getSelectedIndex()).getTen());
 		jcbCode.addItemListener(new ItemListener() {
@@ -99,35 +106,35 @@ public class AddAccount extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-			         jcbName.setText(dsnv.get(jcbCode.getSelectedIndex()).getTen());
-			       }
+					jcbName.setText(dsnv.get(jcbCode.getSelectedIndex()).getTen());
+				}
 			}
 		});
 		setTitle("Thêm tài khoản");
 		setSize(500, 300);
-		setLocationRelativeTo(null); 
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		btAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String user=txtSignUp.getText();
-				String pass=txtPass.getText();
-				String rePass=txtRePass.getText();
-				if(!pass.equals(rePass))
+				String user = txtSignUp.getText();
+				String pass = txtPass.getText();
+				String rePass = txtRePass.getText();
+				if (!pass.equals(rePass))
 					JOptionPane.showMessageDialog(null, this, "Vui lòng nhập đầy đủ thông tin", EXIT_ON_CLOSE);
 				else {
-					String idNhanVien=dsnv.get(jcbCode.getSelectedIndex()).getId();
+					String idNhanVien = dsnv.get(jcbCode.getSelectedIndex()).getId();
 					mn.addAccount(idNhanVien, user, rePass, 0);
 				}
-				
-                dispose();
+
+				dispose();
 			}
 		});
 		btCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                dispose();
+				dispose();
 			}
 
 		});

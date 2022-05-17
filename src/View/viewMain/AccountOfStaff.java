@@ -45,7 +45,6 @@ public class AccountOfStaff extends JFrame {
 	private JLabel lbPass = new JLabel("      Mật khẩu: ");
 	private JPasswordField txtPass = new JPasswordField();
 
-
 	private JLabel lbPhone = new JLabel("      Số điện thoại: ");
 	private JTextField txtPhone = new JTextField();
 
@@ -53,11 +52,11 @@ public class AccountOfStaff extends JFrame {
 	private JTextField txtEmail = new JTextField();
 
 	private JLabel lbSex = new JLabel("      Giới tính: ");
-	private String[] isSex= {"Nữ","Nam"};
+	private String[] isSex = { "Nữ", "Nam" };
 	private JComboBox jcbSex = new JComboBox(isSex);
 	private JLabel lbPos = new JLabel("      Chức vụ: ");
-	List<ChucVu> listChucVu=TaiKhoanDao.getInstance().getListChucVu();
-	private JComboBox jcbPos; ;
+	List<ChucVu> listChucVu = TaiKhoanDao.getInstance().getListChucVu();
+	private JComboBox jcbPos;;
 	private JLabel lbSalary = new JLabel("      Lương: ");
 	private JTextField txtSalary = new JTextField();
 	private JLabel lbNote = new JLabel("      Ghi Chú: ");
@@ -90,13 +89,14 @@ public class AccountOfStaff extends JFrame {
 	private JButton jButtonBrowseImage = new JButton("Mở ảnh");
 	NhanVien nv;
 	TaiKhoan tk;
-private String id;
-	public AccountOfStaff(final String id,final MnStaff mn) {
-		this.id=id;
-		
+	private String id;
+
+	public AccountOfStaff(final String id, final MnStaff mn) {
+		this.id = id;
+
 		setLayout(new GridLayout(0, 2));
-		jcbPos=new JComboBox();
-		for(ChucVu cv:listChucVu) {
+		jcbPos = new JComboBox();
+		for (ChucVu cv : listChucVu) {
 			jcbPos.addItem(cv.getTen());
 		}
 		jcbPos.addItemListener(new ItemListener() {
@@ -104,15 +104,13 @@ private String id;
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-			         int index=jcbPos.getSelectedIndex();
-			     	listChucVu=TaiKhoanDao.getInstance().getListChucVu();
-			     	txtSalary.setText(listChucVu.get(index).getLuong()+"");
-			       }
+					int index = jcbPos.getSelectedIndex();
+					listChucVu = TaiKhoanDao.getInstance().getListChucVu();
+					txtSalary.setText(listChucVu.get(index).getLuong() + "");
+				}
 			}
 		});
-		
-		
-		
+
 		panel1.add(lbName);
 		panel1.add(txtName);
 
@@ -121,7 +119,6 @@ private String id;
 
 		panel3.add(lbPass);
 		panel3.add(txtPass);
-
 
 		panel5.add(lbPhone);
 		panel5.add(txtPhone);
@@ -139,7 +136,7 @@ private String id;
 		panel9.add(txtSalary);
 		panel10.add(lbNote);
 		panel10.add(txtNote);
-		
+
 		panel11.add(lbAddress);
 		txtSalary.setEditable(false);
 		panel11.add(txtAddress);
@@ -158,7 +155,7 @@ private String id;
 		panel9.setLayout(new GridLayout(1, 2));
 		panel10.setLayout(new GridLayout(1, 2));
 		panel11.setLayout(new GridLayout(1, 2));
-		
+
 		panel.add(temp1);
 		panel.add(panel1);
 		panel.add(panel2);
@@ -174,7 +171,6 @@ private String id;
 		panel.add(containSave);
 		add(panel);
 
-		
 		jLabelImage.setOpaque(true);
 
 		jLabelImage.setPreferredSize(new Dimension(180, 180));
@@ -195,36 +191,35 @@ private String id;
 		setData();
 		btSave.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				
-				int result=JOptionPane.showConfirmDialog(null, "Bạn có muốn lưu không?");
+
+				int result = JOptionPane.showConfirmDialog(null, "Bạn có muốn lưu không?");
 				if (result == JOptionPane.OK_OPTION) {
-			        //...
-					
-					String ten=txtName.getText();
-					String userName=txtSignUp.getText();
-					String pass=txtPass.getText();
-					int sdt=Integer.parseInt(txtPhone.getText());
-					String ghiChu=txtNote.getText().equals("")?nv.getGhiChu():txtNote.getText();
-					int gioiTinh=jcbSex.getSelectedIndex();
-					String email=txtEmail.getText().equals("")?nv.getEmail():txtEmail.getText();
-					String diaChi=txtAddress.getText().equals("")?nv.getDiaChi():txtAddress.getText();
-					boolean isExitsAccount=userName.equals("")?false:true;
-					String idChucVu=listChucVu.get(jcbPos.getSelectedIndex()).getId();
-					NhanVienDao.getInstance().setNhanVien(id, ten, sdt, nv.getTrangThai(), ghiChu, gioiTinh, email, diaChi, idChucVu);
-					if(isExitsAccount) {
-					if(tk==null) {
-						TaiKhoanDao.getInstance().addAccount(id, userName, pass, 0);
-					}
-					else {
-						int admin=tk.getQuyen();
-						TaiKhoanDao.getInstance().editAccount(id, id, userName, pass, admin);
-					}
-					
-						
+					// ...
+
+					String ten = txtName.getText();
+					String userName = txtSignUp.getText();
+					String pass = txtPass.getText();
+					int sdt = Integer.parseInt(txtPhone.getText());
+					String ghiChu = txtNote.getText().equals("") ? nv.getGhiChu() : txtNote.getText();
+					int gioiTinh = jcbSex.getSelectedIndex();
+					String email = txtEmail.getText().equals("") ? nv.getEmail() : txtEmail.getText();
+					String diaChi = txtAddress.getText().equals("") ? nv.getDiaChi() : txtAddress.getText();
+					boolean isExitsAccount = userName.equals("") ? false : true;
+					String idChucVu = listChucVu.get(jcbPos.getSelectedIndex()).getId();
+					NhanVienDao.getInstance().setNhanVien(id, ten, sdt, nv.getTrangThai(), ghiChu, gioiTinh, email,
+							diaChi, idChucVu);
+					if (isExitsAccount) {
+						if (tk == null) {
+							TaiKhoanDao.getInstance().addAccount(id, userName, pass, 0);
+						} else {
+							int admin = tk.getQuyen();
+							TaiKhoanDao.getInstance().editAccount(id, id, userName, pass, admin);
+						}
+
 					}
 					mn.update();
-					
-			    }
+
+				}
 			}
 		});
 		jButtonBrowseImage.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +227,7 @@ private String id;
 				jButtonBrowseImageActionPerformed(evt);
 			}
 		});
-		
+
 		setTitle("Thông tin chi tiết nhân viên");
 		setSize(960, 630);
 		setVisible(true);
@@ -240,28 +235,30 @@ private String id;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 	}
-public void setData() {
-	nv=NhanVienDao.getInstance().getNhanVien(id);
-	tk=TaiKhoanDao.getInstance().getAccount(id);
-	txtName.setText(nv.getTen());
-		txtSignUp.setText(tk==null?"":tk.getUserName());
-		txtPass.setText(tk==null?"":tk.getPass());
-		txtPhone.setText("0"+nv.getSdt());
+
+	public void setData() {
+		nv = NhanVienDao.getInstance().getNhanVien(id);
+		tk = TaiKhoanDao.getInstance().getAccount(id);
+		txtName.setText(nv.getTen());
+		txtSignUp.setText(tk == null ? "" : tk.getUserName());
+		txtPass.setText(tk == null ? "" : tk.getPass());
+		txtPhone.setText("0" + nv.getSdt());
 		txtEmail.setText(nv.getEmail());
 		jcbSex.setSelectedIndex(nv.getGioiTinh());
-		int indexPos=0;
-		for(int i=0;i<listChucVu.size();i++) {
-			if(nv.getChucVu().equals(listChucVu.get(i).getId())) {
-				indexPos=i;
+		int indexPos = 0;
+		for (int i = 0; i < listChucVu.size(); i++) {
+			if (nv.getChucVu().equals(listChucVu.get(i).getId())) {
+				indexPos = i;
 				break;
 			}
 		}
 		jcbPos.setSelectedIndex(indexPos);
-		txtSalary.setText(nv.getLuong()+"");
+		txtSalary.setText(nv.getLuong() + "");
 		txtNote.setText(nv.getGhiChu());
 		txtAddress.setText(nv.getDiaChi());
-	
-}
+
+	}
+
 	private void jButtonBrowseImageActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		JFileChooser browseImageFile = new JFileChooser();
@@ -283,6 +280,5 @@ public void setData() {
 			jLabelImage.setIcon(new ImageIcon(image));
 		}
 	}
-
 
 }

@@ -39,15 +39,12 @@ public class AddCollect extends JFrame {
 	private JLabel lbEmail = new JLabel("  Email: ");
 	private JLabel lbAddress = new JLabel("  Địa chỉ: ");
 
-
 	private JComboBox jcbName = new JComboBox();
-	private JTextField txtCode=new JTextField();
+	private JTextField txtCode = new JTextField();
 	private JTextField txtMoney = new JTextField();
 	private JDateChooser dateCollect = new JDateChooser();
 	private JTextField txtEmail = new JTextField();
 	private JTextField txtAddress = new JTextField();
-
-	
 
 	private JPanel container1 = new JPanel();
 	private JPanel container2 = new JPanel();
@@ -66,30 +63,37 @@ public class AddCollect extends JFrame {
 		c.weightx = 1.0;
 		c.weighty = 0.9;
 		c.gridwidth = GridBagConstraints.REMAINDER; // end row
-		
+
 		container1.setLayout(new GridLayout(6, 2, 8, 4));
-		container1.add(lbName); container1.add(jcbName); 
-		container1.add(lbCode); container1.add(txtCode); 
-		container1.add(lbMoney);container1.add(txtMoney); 
-		container1.add(lbDate); container1.add(dateCollect);
+		container1.add(lbName);
+		container1.add(jcbName);
+		container1.add(lbCode);
+		container1.add(txtCode);
+		container1.add(lbMoney);
+		container1.add(txtMoney);
+		container1.add(lbDate);
+		container1.add(dateCollect);
 		txtEmail.setEditable(false);
-		container1.add(lbEmail); container1.add(txtEmail); 
+		container1.add(lbEmail);
+		container1.add(txtEmail);
 		txtAddress.setEditable(false);
-		container1.add(lbAddress); container1.add(txtAddress); 
+		container1.add(lbAddress);
+		container1.add(txtAddress);
 		gridbag.setConstraints(container1, c);
 		add(container1);
-		
+
 		btAdd.setPreferredSize(new Dimension(90, 26));
 		btCancel.setPreferredSize(new Dimension(90, 26));
 		container2.setLayout(new FlowLayout(FlowLayout.CENTER, 24, 0));
 		btAdd.setIcon(new ImageIcon(getClass().getResource("/View/SwingIcon/" + "CheckIcon2.png")));
 		btAdd.setBackground(Color.WHITE);
 //		btAdd.setBorder(lineBorder);
-		
+
 		btCancel.setIcon(new ImageIcon(getClass().getResource("/View/SwingIcon/" + "CancelIcon.png")));
 		btCancel.setBackground(Color.WHITE);
 //		btCancel.setBorder(lineBorder);
-		container2.add(btAdd); container2.add(btCancel);
+		container2.add(btAdd);
+		container2.add(btCancel);
 		container2.setBorder(lineBorder2);
 		dateCollect.setDateFormatString("dd-MM-yyyy");
 		c.gridwidth = 1; // reset to the default
@@ -97,56 +101,55 @@ public class AddCollect extends JFrame {
 		c.weighty = 0.1;
 		gridbag.setConstraints(container2, c);
 		add(container2);
-		
-		final List<KhachHang> ds=KhachHangDao.getInstance().getDanhSachKhachHang();
-		for(KhachHang kh:ds) {
+
+		final List<KhachHang> ds = KhachHangDao.getInstance().getDanhSachKhachHang();
+		for (KhachHang kh : ds) {
 			jcbName.addItem(kh.getHoVaTen());
 		}
-		KhachHang kh=ds.get(jcbName.getSelectedIndex());
+		KhachHang kh = ds.get(jcbName.getSelectedIndex());
 		txtCode.setText(kh.getMaSo());
-     	txtEmail.setText(kh.getEmail());
-     	txtAddress.setText(kh.getDiachi());
+		txtEmail.setText(kh.getEmail());
+		txtAddress.setText(kh.getDiachi());
 		jcbName.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					KhachHang kh=ds.get(jcbName.getSelectedIndex());
-			     	txtCode.setText(kh.getMaSo());
-			     	txtEmail.setText(kh.getEmail());
-			     	txtAddress.setText(kh.getDiachi());
-			     	
-			       }
+					KhachHang kh = ds.get(jcbName.getSelectedIndex());
+					txtCode.setText(kh.getMaSo());
+					txtEmail.setText(kh.getEmail());
+					txtAddress.setText(kh.getDiachi());
+
+				}
 			}
 		});
-		
+
 		setTitle("Thêm phiếu thu nợ");
 		setSize(500, 300);
-		setLocationRelativeTo(null); 
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		btAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				KhachHang kh=ds.get(jcbName.getSelectedIndex());
-				String idkh=txtCode.getText().equals("")?kh.getMaSo():txtCode.getText();
-				double soTienNo=txtMoney.getText().equals("")?0:Double.parseDouble(txtMoney.getText());
-				java.util.Date ngayThuChon=dateCollect.getDate();
-		     	Date ngayThu=dateCollect.getDate()==null?new Date(System.currentTimeMillis()):new Date(ngayThuChon.getYear(),ngayThuChon.getMonth(),ngayThuChon.getDay());
+				KhachHang kh = ds.get(jcbName.getSelectedIndex());
+				String idkh = txtCode.getText().equals("") ? kh.getMaSo() : txtCode.getText();
+				double soTienNo = txtMoney.getText().equals("") ? 0 : Double.parseDouble(txtMoney.getText());
+				java.util.Date ngayThuChon = dateCollect.getDate();
+				Date ngayThu = dateCollect.getDate() == null ? new Date(System.currentTimeMillis())
+						: new Date(ngayThuChon.getYear(), ngayThuChon.getMonth(), ngayThuChon.getDay());
 				mn.addDebt(idkh, ngayThu, soTienNo);
-                dispose();
+				dispose();
 			}
 
 		});
 		btCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                dispose();
+				dispose();
 			}
 
 		});
 	}
-
-
 
 }
