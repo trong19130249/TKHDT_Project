@@ -36,7 +36,7 @@ public class AddAPurchase extends JFrame {
 	private JComboBox jcbName = new JComboBox();
 	private JTextField txtPhone = new JTextField();
 	private JTextField txtMoney = new JTextField();
-	
+
 	private JPanel container1 = new JPanel();
 	private JPanel container2 = new JPanel();
 	private JButton btAdd = new JButton("Thêm");
@@ -54,75 +54,77 @@ public class AddAPurchase extends JFrame {
 		c.weightx = 1.0;
 		c.weighty = 0.9;
 		c.gridwidth = GridBagConstraints.REMAINDER; // end row
-		
+
 		container1.setLayout(new GridLayout(4, 2, 8, 4));
-		container1.add(lbCode); container1.add(txtCode); 
-		container1.add(lbName); container1.add(jcbName); 
+		container1.add(lbCode);
+		container1.add(txtCode);
+		container1.add(lbName);
+		container1.add(jcbName);
 		txtPhone.setEditable(false);
-		container1.add(lbPhone); container1.add(txtPhone); 
+		container1.add(lbPhone);
+		container1.add(txtPhone);
 		gridbag.setConstraints(container1, c);
 		add(container1);
-		
+
 		btAdd.setPreferredSize(new Dimension(90, 26));
 		btCancel.setPreferredSize(new Dimension(90, 26));
 		container2.setLayout(new FlowLayout(FlowLayout.CENTER, 24, 0));
 		btAdd.setIcon(new ImageIcon(getClass().getResource("/View/SwingIcon/" + "CheckIcon2.png")));
 		btAdd.setBackground(Color.WHITE);
 //		btAdd.setBorder(lineBorder);
-		
+
 		btCancel.setIcon(new ImageIcon(getClass().getResource("/View/SwingIcon/" + "CancelIcon.png")));
 		btCancel.setBackground(Color.WHITE);
 //		btCancel.setBorder(lineBorder);
-		container2.add(btAdd); container2.add(btCancel);
+		container2.add(btAdd);
+		container2.add(btCancel);
 		container2.setBorder(lineBorder2);
 		c.gridwidth = 1; // reset to the default
 		c.gridheight = 1;
 		c.weighty = 0.1;
 		gridbag.setConstraints(container2, c);
 		add(container2);
-		final List<NhaBanHang> ds=NhaCungCapDao.getInstance().getAll();
-		for(NhaBanHang nbh:ds) {
-			jcbName.addItem((String)nbh.getTen());
+		final List<NhaBanHang> ds = NhaCungCapDao.getInstance().getAll();
+		for (NhaBanHang nbh : ds) {
+			jcbName.addItem((String) nbh.getTen());
 		}
-		 int index0=jcbName.getSelectedIndex();
-	     	NhaBanHang nbh=ds.get(index0);
-	     	txtPhone.setText("0"+nbh.getSdt()+"");
-	     	jcbName.addItemListener(new ItemListener() {
+		int index0 = jcbName.getSelectedIndex();
+		NhaBanHang nbh = ds.get(index0);
+		txtPhone.setText("0" + nbh.getSdt() + "");
+		jcbName.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-			         int index=jcbName.getSelectedIndex();
-			         NhaBanHang nbh=ds.get(index);
-			         txtPhone.setText("0"+nbh.getSdt()+"");
-			       }
+					int index = jcbName.getSelectedIndex();
+					NhaBanHang nbh = ds.get(index);
+					txtPhone.setText("0" + nbh.getSdt() + "");
+				}
 			}
 		});
 		setTitle("Thêm phiếu nhập hàng");
 		setSize(500, 300);
-		setLocationRelativeTo(null); 
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		btAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Date date=new Date(System.currentTimeMillis());
-				String idls=txtCode.getText().equals("")?"":txtCode.getText();
-				String idnbh=ds.get(jcbName.getSelectedIndex()).getId();
+				Date date = new Date(System.currentTimeMillis());
+				String idls = txtCode.getText().equals("") ? "" : txtCode.getText();
+				String idnbh = ds.get(jcbName.getSelectedIndex()).getId();
 				mn.addLichSu(idls, idnbh, date);
-                dispose();
+				dispose();
 			}
 
 		});
 		btCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                dispose();
+				dispose();
 			}
 
 		});
 	}
 
-
 }
-

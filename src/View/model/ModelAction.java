@@ -15,30 +15,31 @@ import model.ASanPham;
 
 public class ModelAction {
 
-    private ASanPham product;
-    private EventAction event;
-    public ModelAction() {
-    }
+	private ASanPham product;
+	private EventAction event;
 
-    public ModelAction(ASanPham product, EventAction event) {
-        this.product = product;
-        this.event = event;
-    }
+	public ModelAction() {
+	}
 
-    public ASanPham getProduct() {
-        return product;
-    }
+	public ModelAction(ASanPham product, EventAction event) {
+		this.product = product;
+		this.event = event;
+	}
 
-    public void setProduct(ASanPham product) {
-        this.product = product;
-    }
+	public ASanPham getProduct() {
+		return product;
+	}
 
-    public EventAction getEvent() {
-        return event;
-    }
+	public void setProduct(ASanPham product) {
+		this.product = product;
+	}
 
-    public void setEvent(EventAction event) {
-        this.event = event;
-    }
+	public EventAction getEvent() {
+		return event;
+	}
+
+	public void setEvent(EventAction event) {
+		this.event = event;
+	}
 
 }

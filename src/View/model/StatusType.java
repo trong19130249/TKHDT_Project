@@ -10,5 +10,5 @@ package View.model;
  * @author trong
  */
 public enum StatusType {
-    ACCEPT, SHIP, RECEIVE,CANCELLED
+	ACCEPT, SHIP, RECEIVE, CANCELLED
 }

@@ -31,14 +31,14 @@ public class AddCustomer extends JFrame {
 	private JTextField txtAddress = new JTextField();
 	private JTextField txtDebt = new JTextField();
 	private JTextField txtNote = new JTextField();
-	
+
 	private JPanel container1 = new JPanel();
 	private JPanel container2 = new JPanel();
 	private JButton btAdd = new JButton("Thêm");
 	private JButton btCancel = new JButton("Hủy");
-	
+
 	private Border lineBorder = new LineBorder(new Color(0, 144, 255), 2);
-	private Border lineBorder2 = new LineBorder(new Color(238,238,238), 10);
+	private Border lineBorder2 = new LineBorder(new Color(238, 238, 238), 10);
 
 	public AddCustomer(final MnCustomer mnCustomer) {
 		GridBagLayout gridbag = new GridBagLayout();
@@ -49,51 +49,57 @@ public class AddCustomer extends JFrame {
 		c.weightx = 1.0;
 		c.weighty = 0.9;
 		c.gridwidth = GridBagConstraints.REMAINDER; // end row
-		
+
 		container1.setLayout(new GridLayout(6, 2, 8, 4));
-		container1.add(lbName); container1.add(txtName); 
-		container1.add(lbPhone); container1.add(txtPhone); 
-		container1.add(lbAddress); container1.add(txtAddress); 
-		container1.add(lbDebt); container1.add(txtDebt); 
-		container1.add(lbNote); container1.add(txtNote); 
+		container1.add(lbName);
+		container1.add(txtName);
+		container1.add(lbPhone);
+		container1.add(txtPhone);
+		container1.add(lbAddress);
+		container1.add(txtAddress);
+		container1.add(lbDebt);
+		container1.add(txtDebt);
+		container1.add(lbNote);
+		container1.add(txtNote);
 		gridbag.setConstraints(container1, c);
 		add(container1);
-		
+
 		btAdd.setPreferredSize(new Dimension(90, 26));
 		btCancel.setPreferredSize(new Dimension(90, 26));
 		container2.setLayout(new FlowLayout(FlowLayout.CENTER, 24, 0));
 		btAdd.setIcon(new ImageIcon(getClass().getResource("/View/SwingIcon/" + "CheckIcon2.png")));
 		btAdd.setBackground(Color.WHITE);
 //		btAdd.setBorder(lineBorder);
-		
+
 		btCancel.setIcon(new ImageIcon(getClass().getResource("/View/SwingIcon/" + "CancelIcon.png")));
 		btCancel.setBackground(Color.WHITE);
 //		btCancel.setBorder(lineBorder);
-		container2.add(btAdd); container2.add(btCancel);
+		container2.add(btAdd);
+		container2.add(btCancel);
 		container2.setBorder(lineBorder2);
 		c.gridwidth = 1; // reset to the default
 		c.gridheight = 1;
 		c.weighty = 0.1;
 		gridbag.setConstraints(container2, c);
 		add(container2);
-		
-		
+
 		setTitle("Thêm khách hàng");
 		setSize(500, 300);
-		setLocationRelativeTo(null); 
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		btAdd.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String id=UUID.randomUUID().toString();
-				String ten=txtName.getText().equals("")?"":txtName.getText();;
-				String email=txtPhone.getText().equals("")?"":txtPhone.getText();
-				String diaChi=txtAddress.getText().equals("")?"":txtAddress.getText();
-				double soTienNo=txtDebt.getText().equals("")?0:Double.parseDouble(txtDebt.getText());
-				String ghiChu=txtNote.getText().equals("")?"":txtNote.getText();
+				String id = UUID.randomUUID().toString();
+				String ten = txtName.getText().equals("") ? "" : txtName.getText();
+				;
+				String email = txtPhone.getText().equals("") ? "" : txtPhone.getText();
+				String diaChi = txtAddress.getText().equals("") ? "" : txtAddress.getText();
+				double soTienNo = txtDebt.getText().equals("") ? 0 : Double.parseDouble(txtDebt.getText());
+				String ghiChu = txtNote.getText().equals("") ? "" : txtNote.getText();
 				mnCustomer.addKhachHang(id, ten, email, diaChi, soTienNo, ghiChu);
 				dispose();
 			}
@@ -101,11 +107,10 @@ public class AddCustomer extends JFrame {
 		btCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-                dispose();
+				dispose();
 			}
 
 		});
 	}
-
 
 }

@@ -10,33 +10,38 @@ import model.ChiTietLichSuMuaHang;
 import model.LichSuMuaHang;
 import model.Observer;
 
-public class APurchaseData implements CTNhapHangModelInterface{
+public class APurchaseData implements CTNhapHangModelInterface {
 	private String[] columnNames = { "", "Mã hàng hóa", "Tên hàng hóa", "DVT", "Giá nhập", "Số lượng", "Loại hàng hóa",
-			 "Tổng tiền" };
-	
+			"Tổng tiền" };
+
 	private Object[][] rowData;
+
 	public APurchaseData() {
-		
+
 	}
-	 
+
 	public String[] getColumnNames() {
 		return columnNames;
 	}
-	 
+
 	public Object[][] getRowData() {
 		return rowData;
 	}
-	ArrayList<Observer> observers=new ArrayList<Observer>();
+
+	ArrayList<Observer> observers = new ArrayList<Observer>();
+
 	public void setData(String idLichSu) {
-		List<ChiTietLichSuMuaHang> list=getChiTiet(idLichSu);
-		rowData=new Object[list.size()][columnNames.length];
-		for(int i=0;i<rowData.length;i++) {
-			ChiTietLichSuMuaHang ct=list.get(i);
-			ASanPham sp=ct.getVatLieu();
-			Object[] element= {false,sp.getId(),sp.getTenSanPham(),sp.getDonViTinh(),sp.getGiaNhap(),ct.getSoLuong(),ct.getVatLieu().getType(),ct.thanhTien()};
-			rowData[i]=element;
+		List<ChiTietLichSuMuaHang> list = getChiTiet(idLichSu);
+		rowData = new Object[list.size()][columnNames.length];
+		for (int i = 0; i < rowData.length; i++) {
+			ChiTietLichSuMuaHang ct = list.get(i);
+			ASanPham sp = ct.getVatLieu();
+			Object[] element = { false, sp.getId(), sp.getTenSanPham(), sp.getDonViTinh(), sp.getGiaNhap(),
+					ct.getSoLuong(), ct.getVatLieu().getType(), ct.thanhTien() };
+			rowData[i] = element;
 		}
 	}
+
 	@Override
 	public void registerObserver(Observer o) {
 		// TODO Auto-generated method stub
@@ -46,15 +51,16 @@ public class APurchaseData implements CTNhapHangModelInterface{
 	@Override
 	public void removeObserver(Observer o) {
 		// TODO Auto-generated method stub
-		int index=observers.indexOf(o);
-		if(index>=0) observers.remove(index);
-		
+		int index = observers.indexOf(o);
+		if (index >= 0)
+			observers.remove(index);
+
 	}
 
 	@Override
 	public void notifyObservers() {
 		// TODO Auto-generated method stub
-		for(Observer view:observers) {
+		for (Observer view : observers) {
 			view.update();
 		}
 	}
@@ -68,26 +74,28 @@ public class APurchaseData implements CTNhapHangModelInterface{
 	@Override
 	public boolean deleteChiTiet(String id, String idvl) {
 		// TODO Auto-generated method stub
-		boolean r=NhapHangDao.getInstance().deleteChiTiet(id, idvl);
-		if(r) notifyObservers();
+		boolean r = NhapHangDao.getInstance().deleteChiTiet(id, idvl);
+		if (r)
+			notifyObservers();
 		return r;
 	}
 
 	@Override
-	public boolean editChiTiet(String id,String idVatLieuCu, String idVatLieu, double soLuong) {
+	public boolean editChiTiet(String id, String idVatLieuCu, String idVatLieu, double soLuong) {
 		// TODO Auto-generated method stub
-		boolean r=NhapHangDao.getInstance().editChiTiet(id, idVatLieuCu,idVatLieu, soLuong);
-		if(r)notifyObservers();
+		boolean r = NhapHangDao.getInstance().editChiTiet(id, idVatLieuCu, idVatLieu, soLuong);
+		if (r)
+			notifyObservers();
 		return r;
 	}
 
 	@Override
 	public boolean addChiTiet(String idLichSu, String idVatLieu, double soLuong) {
 		// TODO Auto-generated method stub
-		boolean r=NhapHangDao.getInstance().addChiTiet(idLichSu, idVatLieu, soLuong);
-		if(r)notifyObservers();
+		boolean r = NhapHangDao.getInstance().addChiTiet(idLichSu, idVatLieu, soLuong);
+		if (r)
+			notifyObservers();
 		return r;
 	}
-	
 
 }

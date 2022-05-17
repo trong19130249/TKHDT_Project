@@ -84,7 +84,7 @@ public class FixProduct extends JFrame {
 		c.weighty = 0.1;
 		gridbag.setConstraints(container2, c);
 		add(container2);
-		
+		txtCode.setText(mnProduct.getId());
 		
 		setTitle("Sửa hàng hóa");
 		setSize(500, 300);
